@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+
+  .logo {
+    font-size: 2rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    .title {
+      font-size: 1rem;
+      margin-left: 4px;
+    }
+  }
+
+  .mainNav {
+    flex: 1;
+  }
+}
+
+.site-layout-background {
+  background: #fff;
+}
