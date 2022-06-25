@@ -1,9 +1,14 @@
 import axiosClient from "./axiosClient";
 
 const crudAPi = {
-  getData: (data_type, params) => {
-    const url = "";
+  getData: (category, params) => {
+    const url = "/" + category;
     return axiosClient.get(url, params);
+  },
+
+  postData: (category, data) => {
+    const url = "/" + category;
+    return axiosClient.post(url, data);
   },
 };
 

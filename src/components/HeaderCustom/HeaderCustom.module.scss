@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .search {
+    width: 400px;
+    margin: 0 20px;
+  }
+  .logo {
+    font-size: 2rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    .title {
+      font-size: 1rem;
+      margin-left: 4px;
+    }
+  }
+  .mainNav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .menu {
+    color: white;
+    font-size: 1.4rem;
+  }
+
+  .menu-item {
+    padding: 2px 14px;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: red;
+      cursor: pointer;
+    }
+  }
+}
