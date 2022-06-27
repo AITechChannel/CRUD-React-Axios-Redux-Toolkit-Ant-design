@@ -1,19 +1,39 @@
+@import "../../scss/";
+
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @include mobile {
+    padding: 0 16px;
+  }
+
   .search {
     width: 400px;
     margin: 0 20px;
+    @include tablet {
+      display: none;
+    }
+  }
+  .search-tablet {
+    display: none;
+
+    @include mobile {
+      display: block;
+    }
   }
   .logo {
-    font-size: 2rem;
+    font-size: 1.4rem;
     color: white;
     display: flex;
     align-items: center;
     .title {
       font-size: 1rem;
       margin-left: 4px;
+      @include mobile {
+        display: none;
+      }
     }
   }
   .mainNav {
@@ -22,17 +42,27 @@
     justify-content: flex-end;
   }
   .menu {
-    color: white;
-    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
   }
 
   .menu-item {
-    padding: 2px 14px;
-    border-radius: 5px;
+    font-size: 1rem;
+    color: $white;
+    border: none;
+    width: 40px;
+    background-color: #001529;
 
     &:hover {
-      background-color: red;
+      background-color: $primary;
       cursor: pointer;
     }
+  }
+  .avatar {
+    background-color: $primary;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 40px;
   }
 }

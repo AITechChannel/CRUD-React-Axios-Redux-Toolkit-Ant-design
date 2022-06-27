@@ -1,3 +1,10 @@
-.site-layout-background {
-  background: #fff;
+@import "../../scss/";
+
+// .sider-container {
+//   @include tablet {
+//     display: none;
+//   }
+// }
+.sider-bg {
+  background-color: $white;
 }

@@ -1,27 +1,40 @@
+import { HomeOutlined, MenuOutlined } from "@ant-design/icons";
+import { Button, Layout, Modal } from "antd";
 import "antd/dist/antd.css";
+import Search from "antd/lib/input/Search";
 import classNames from "classnames/bind";
+import { useState } from "react";
 import {
   AiOutlineBell,
   AiOutlinePlus,
   AiOutlineQuestionCircle,
   AiOutlineRise,
 } from "react-icons/ai";
-import { SiDeepnote } from "react-icons/si";
+import FormAddTask from "../FormAddTask";
+import FormAddTaskModal from "../FormAddTaskModal";
 import styles from "./HeaderCustom.module.scss";
-import { Layout } from "antd";
-import Search from "antd/lib/input/Search";
 
 const cx = classNames.bind(styles);
 const { Header, Content, Sider } = Layout;
 
 function HeaderCustom() {
+  const [showSearchInput, setShowSearchInput] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+
+  const showModal = () => {
+    setShowForm(true);
+  };
   return (
     <Header className={cx("header")}>
+      <Button className={cx("search-tablet")} icon={<MenuOutlined />} />
       <div className={cx("logo")}>
-        <span>
-          <SiDeepnote />
-        </span>
-        <span className={cx("title")}>Tuananh Doan</span>
+        <a>
+          <span>
+            <HomeOutlined />
+          </span>
+          <span className={cx("title")}>Tuananh Doan</span>
+        </a>
+
         <Search
           placeholder="input search text"
           allowClear
@@ -32,19 +45,30 @@ function HeaderCustom() {
       </div>
 
       <div className={cx("menu")}>
-        <span className={cx("menu-item")}>
-          <AiOutlinePlus />
-        </span>
-        <span className={cx("menu-item")}>
-          <AiOutlineRise />
-        </span>
-        <span className={cx("menu-item")}>
-          <AiOutlineQuestionCircle />
-        </span>
-        <span className={cx("menu-item")}>
-          <AiOutlineBell />
-        </span>
+        <Button
+          size="large"
+          className={cx("menu-item")}
+          icon={<AiOutlinePlus />}
+          onClick={showModal}
+        />
+        <Button
+          size="large"
+          className={cx("menu-item")}
+          icon={<AiOutlineRise />}
+        />
+        <Button
+          size="large"
+          className={cx("menu-item")}
+          icon={<AiOutlineQuestionCircle />}
+        />
+        <Button
+          size="large"
+          className={cx("menu-item")}
+          icon={<AiOutlineBell />}
+        />
+        <div className={cx("menu-item", "avatar")}></div>
       </div>
+      <FormAddTaskModal showForm={showForm} />
     </Header>
   );
 }
