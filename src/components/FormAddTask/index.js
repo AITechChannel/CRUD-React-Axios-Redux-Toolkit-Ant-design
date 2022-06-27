@@ -9,9 +9,14 @@ import {
   InboxOutlined,
   TagOutlined,
 } from "@ant-design/icons";
+import PropTypes from "prop-types";
 const cx = classNames.bind(styles);
 const { TextArea } = Input;
-function FormAddTask() {
+
+function FormAddTask({ onClick }) {
+  const handleClick = (actionName) => {
+    onClick(actionName);
+  };
   return (
     <>
       <div className={cx("text-area-container")}>
@@ -20,17 +25,15 @@ function FormAddTask() {
           bordered={false}
           autoSize={true}
           className={cx("text-area", "title-text")}
-        >
-          sdfsdf
-        </TextArea>
+        />
+
         <TextArea
           placeholder="Desciption"
           bordered={false}
           autoSize={{ minRows: 6 }}
           className={cx("text-area")}
-        >
-          sdfsdf
-        </TextArea>
+        />
+
         <div className={cx("actions-in")}>
           <div>
             <Button
@@ -63,7 +66,12 @@ function FormAddTask() {
         </div>
       </div>
       <div className={cx("actions-out")}>
-        <Button style={{ marginRight: 10 }} size="large" type="outline">
+        <Button
+          style={{ marginRight: 10 }}
+          size="large"
+          type="outline"
+          onClick={() => handleClick("cancel")}
+        >
           Cancel
         </Button>
         <Button style={{ marginRight: 10 }} size="large" type="primary">
@@ -74,4 +82,7 @@ function FormAddTask() {
   );
 }
 
+FormAddTask.prototype = {
+  onClick: PropTypes.func,
+};
 export default FormAddTask;

@@ -2,13 +2,15 @@ import "./App.scss";
 import CustomLayout from "./layouts/CustomLayout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
-
+import { useSelector } from "react-redux/es/exports";
 const publicRoutes = [
   { path: "/", component: Home },
   // { path: "*", component: NotFound },
 ];
 
 function App() {
+  const data = useSelector((state) => state);
+  console.log(data);
   return (
     <BrowserRouter>
       <Routes>

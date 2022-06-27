@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 
-const crudAPi = {
+const taskApi = {
   getData: (category, params) => {
     const url = "/" + category;
     return axiosClient.get(url, params);
@@ -12,4 +12,4 @@ const crudAPi = {
   },
 };
 
-export default crudAPi;
+export default taskApi;

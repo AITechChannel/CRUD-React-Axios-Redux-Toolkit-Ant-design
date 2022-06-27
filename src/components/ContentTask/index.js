@@ -1,28 +1,27 @@
 import {
-  CarryOutOutlined,
   CommentOutlined,
   ControlOutlined,
-  DownloadOutlined,
-  InboxOutlined,
   MoreOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
 import { Button, Divider, Layout } from "antd";
 import "antd/dist/antd.css";
-import {
-  AiOutlineControl,
-  AiOutlineMessage,
-  AiOutlineMore,
-  AiOutlinePlus,
-} from "react-icons/ai";
 import FormAddTask from "../FormAddTask";
 
 import classNames from "classnames/bind";
+import { useState } from "react";
 import styles from "./ContentTask.module.scss";
 const cx = classNames.bind(styles);
 const { Header, Content, Sider } = Layout;
 
 function ContentTask() {
+  const [showFormAddTask, setShowFormAddTask] = useState(false);
+
+  const handleCancel = (a) => {
+    if (a === "cancel") {
+      setShowFormAddTask(false);
+    }
+  };
   return (
     <>
       <div className={cx("header")}>
@@ -51,10 +50,17 @@ function ContentTask() {
         </div>
       </div>
       <Divider style={{ margin: "10px 0" }} />
-      <Button size="large" type="text" icon={<PlusOutlined />}>
+
+      <Button
+        size="large"
+        type="text"
+        icon={<PlusOutlined />}
+        onClick={() => setShowFormAddTask(!showFormAddTask)}
+      >
         Add task
       </Button>
-      <FormAddTask />
+
+      {showFormAddTask && <FormAddTask onClick={handleCancel} />}
     </>
   );
 }

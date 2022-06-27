@@ -19,11 +19,7 @@ const { Header, Content, Sider } = Layout;
 
 function HeaderCustom() {
   const [showSearchInput, setShowSearchInput] = useState(true);
-  const [showForm, setShowForm] = useState(false);
 
-  const showModal = () => {
-    setShowForm(true);
-  };
   return (
     <Header className={cx("header")}>
       <Button className={cx("search-tablet")} icon={<MenuOutlined />} />
@@ -49,7 +45,6 @@ function HeaderCustom() {
           size="large"
           className={cx("menu-item")}
           icon={<AiOutlinePlus />}
-          onClick={showModal}
         />
         <Button
           size="large"
@@ -68,7 +63,6 @@ function HeaderCustom() {
         />
         <div className={cx("menu-item", "avatar")}></div>
       </div>
-      <FormAddTaskModal showForm={showForm} />
     </Header>
   );
 }
