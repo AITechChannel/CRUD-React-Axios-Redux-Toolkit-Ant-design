@@ -1,0 +1,17 @@
+.task-container {
+  .task {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  .check-box {
+    margin: 4px 10px 0 0;
+  }
+  .title {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .content {
+    flex: 1;
+  }
+}

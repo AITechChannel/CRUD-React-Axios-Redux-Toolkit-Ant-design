@@ -1,25 +1,14 @@
-import React from "react";
+import { Button, Input, Menu, message, Modal, Switch } from "antd";
 import "antd/dist/antd.css";
-import {
-  Button,
-  Dropdown,
-  Input,
-  Menu,
-  message,
-  Modal,
-  Space,
-  Switch,
-} from "antd";
-import { useState } from "react";
-import { DownOutlined } from "@ant-design/icons";
 import classNames from "classnames/bind";
+import { useState } from "react";
 
-import styles from "./AddTask.module.scss";
-import { TreeNode } from "antd/lib/tree-select";
-import TreeSelect from "rc-tree-select";
-import SelectColor from "../SelectColor";
+import SelectColor from "./components/SelectColor";
+import styles from "./AddProject.module.scss";
+
 const cx = classNames.bind(styles);
-const AddTask = () => {
+
+const AddProject = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -104,4 +93,4 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
+export default AddProject;

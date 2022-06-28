@@ -1,14 +1,25 @@
 import axiosClient from "./axiosClient";
 
 const taskApi = {
-  getData: (category, params) => {
-    const url = "/" + category;
-    return axiosClient.get(url, params);
+  getAllProject: () => {
+    const url = "/projects";
+    return axiosClient.get(url, {});
   },
-
-  postData: (category, data) => {
-    const url = "/" + category;
-    return axiosClient.post(url, data);
+  getAProject: (id) => {
+    const url = "/projects/" + id;
+    return axiosClient.get(url, {});
+  },
+  getActiveTasks: () => {
+    const url = "/tasks";
+    return axiosClient.get(url, {});
+  },
+  createTask: (data) => {
+    const url = "/tasks";
+    return axiosClient.post(url, data, {});
+  },
+  delTask: (id) => {
+    const url = "/tasks/" + id;
+    return axiosClient.delete(url, {});
   },
 };
 

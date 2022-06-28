@@ -10,8 +10,8 @@ import {
   AiOutlineQuestionCircle,
   AiOutlineRise,
 } from "react-icons/ai";
-import FormAddTask from "../FormAddTask";
-import FormAddTaskModal from "../FormAddTaskModal";
+import FormAddTask from "../ContentTask/components/FormAddTask";
+import FormAddTaskModal from "../ContentTask/components/FormAddTaskModal";
 import styles from "./HeaderCustom.module.scss";
 
 const cx = classNames.bind(styles);

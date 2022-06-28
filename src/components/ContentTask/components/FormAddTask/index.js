@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Input } from "antd";
 import classNames from "classnames/bind";
 import styles from "./FormAddTask.module.scss";
@@ -10,12 +10,26 @@ import {
   TagOutlined,
 } from "@ant-design/icons";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import {
+  createTask,
+  getActiveTasks,
+} from "../../../../Redux/sliceReducer/tasksSlice";
 const cx = classNames.bind(styles);
 const { TextArea } = Input;
 
 function FormAddTask({ onClick }) {
-  const handleClick = (actionName) => {
+  const [taskName, setTaskName] = useState("");
+  const [description, setDescription] = useState("");
+
+  const dispatch = useDispatch();
+  const handleOnClick = (actionName) => {
     onClick(actionName);
+
+    if (actionName === "addTask") {
+      dispatch(createTask({ content: taskName, description: description }));
+      dispatch(getActiveTasks());
+    }
   };
   return (
     <>
@@ -25,6 +39,8 @@ function FormAddTask({ onClick }) {
           bordered={false}
           autoSize={true}
           className={cx("text-area", "title-text")}
+          value={taskName}
+          onChange={(e) => setTaskName(e.target.value)}
         />
 
         <TextArea
@@ -32,6 +48,8 @@ function FormAddTask({ onClick }) {
           bordered={false}
           autoSize={{ minRows: 6 }}
           className={cx("text-area")}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
 
         <div className={cx("actions-in")}>
@@ -70,11 +88,16 @@ function FormAddTask({ onClick }) {
           style={{ marginRight: 10 }}
           size="large"
           type="outline"
-          onClick={() => handleClick("cancel")}
+          onClick={() => handleOnClick("cancel")}
         >
           Cancel
         </Button>
-        <Button style={{ marginRight: 10 }} size="large" type="primary">
+        <Button
+          onClick={() => handleOnClick("addTask")}
+          style={{ marginRight: 10 }}
+          size="large"
+          type="primary"
+        >
           Add task
         </Button>
       </div>

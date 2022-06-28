@@ -17,7 +17,8 @@ import {
   AiOutlinePlus,
   AiOutlineRead,
 } from "react-icons/ai";
-import AddTask from "../AddTask";
+import AddTask from "../AddProject";
+import AddProject from "../AddProject";
 
 const cx = classNames.bind(styles);
 const { Header, Content, Sider } = Layout;
@@ -34,11 +35,15 @@ const items1 = [AiOutlineInbox, AiOutlineCalendar, AiOutlineRead].map(
 );
 
 function SiderCustom({ children }) {
-  const [menuItem, setMenuItem] = useState(["sdfsdf"]);
-
-  const handleClickAddTask = (e) => {
-    e.stopPropagation();
-  };
+  const items = [
+    { label: "Inbox", key: "inbox", icon: <InboxOutlined /> }, // remember to pass the key prop
+    { label: "Today", key: "today", icon: <CalendarOutlined /> }, // which is required
+    {
+      label: "Project",
+      key: "project",
+      children: [{ label: "Name project", key: "proj-1" }],
+    },
+  ];
   return (
     <Layout>
       <Sider
@@ -47,22 +52,14 @@ function SiderCustom({ children }) {
         width={200}
         className={cx("sider-container", "sider-bg")}
       >
+        <AddProject />
         <Menu
           mode="inline"
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
-        >
-          <Menu.Item key={1} icon={<InboxOutlined />}>
-            Inbox
-          </Menu.Item>
-          <Menu.Item icon={<CalendarOutlined />}>Today</Menu.Item>
-          <Menu.SubMenu title="Project">
-            <AddTask />
-            <Menu.Item>JavaScript</Menu.Item>
-          </Menu.SubMenu>
-        </Menu>
+          defaultSelectedKeys={["inbox"]}
+          defaultOpenKeys={["project"]}
+          items={items}
+        ></Menu>
       </Sider>
-
       <Layout
         style={{
           padding: " 24px",

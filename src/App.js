@@ -9,8 +9,6 @@ const publicRoutes = [
 ];
 
 function App() {
-  const data = useSelector((state) => state);
-  console.log(data);
   return (
     <BrowserRouter>
       <Routes>
