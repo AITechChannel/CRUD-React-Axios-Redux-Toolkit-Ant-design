@@ -1,11 +1,12 @@
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Checkbox, Divider } from "antd";
 import classNames from "classnames/bind";
 import styles from "./Task.module.scss";
 const cx = classNames.bind(styles);
 
 function Task({ taskName, description, onClick, id }) {
-  const handleOnDel = (actionName, id) => {
+  const handleOnClick = (actionName, id) => {
+    console.log(id);
     onClick(actionName, id);
   };
   return (
@@ -19,7 +20,11 @@ function Task({ taskName, description, onClick, id }) {
           <div className={cx("des")}>{description}</div>
         </div>
         <div>
-          <DeleteOutlined onClick={() => handleOnDel("delete", id)} />
+          <EditOutlined
+            onClick={() => handleOnClick("edit", id)}
+            style={{ marginRight: 20 }}
+          />
+          <DeleteOutlined onClick={() => handleOnClick("delete", id)} />
         </div>
       </div>
       <Divider style={{ margin: "8px 0" }} />

@@ -3,27 +3,59 @@ import taskApi from "../../api/taskApi";
 const tasksSlice = createSlice({
   name: "tasks",
   initialState: {
-    status: "idle",
-    activeTasks: [],
+    status: { getActiveTasks: "idle", delTask: "idle", createTask: "idle" },
+    activeTasksServer: [],
+    activeTasksUi: [],
   },
-  //   reducers: {
-  //     add: (state, action) => {
-  //       state.push(action.payload);
-  //     },
-  //   },
+  reducers: {
+    add: (state, action) => {
+      state.activeTasksUi.push(action.payload);
+    },
+    delete: (state, action) => {
+      state.activeTasksUi.splice(
+        state.activeTasksUi.findIndex((e, i) => e.id === action.payload),
+        1
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getActiveTasks.pending, (state, action) => {
-      state.status = "loading";
+      state.status.getActiveTasks = "loading";
     });
 
     builder.addCase(getActiveTasks.fulfilled, (state, action) => {
-      state.status = "success";
+      state.status.getActiveTasks = "success";
 
-      state.activeTasks.push(...action.payload);
+      state.activeTasksServer = action.payload;
+      state.activeTasksUi = action.payload;
     });
 
     builder.addCase(getActiveTasks.rejected, (state, action) => {
-      state.status = "error";
+      state.status.getActiveTasks = "error";
+    });
+    //------------------------------------------------------------
+    builder.addCase(createTask.pending, (state, action) => {
+      state.status.createTask = "loading";
+    });
+
+    builder.addCase(createTask.fulfilled, (state, action) => {
+      state.status.createTask = "success";
+    });
+
+    builder.addCase(createTask.rejected, (state, action) => {
+      state.status.createTask = "error";
+    });
+    //------------------------------------------------------------
+    builder.addCase(delTask.pending, (state, action) => {
+      state.status.delTask = "loading";
+    });
+
+    builder.addCase(delTask.fulfilled, (state, action) => {
+      state.status.delTask = "success";
+    });
+
+    builder.addCase(delTask.rejected, (state, action) => {
+      state.status.delTask = "error";
     });
   },
 });

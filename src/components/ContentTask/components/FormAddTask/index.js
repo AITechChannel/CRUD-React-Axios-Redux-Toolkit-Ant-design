@@ -10,26 +10,21 @@ import {
   TagOutlined,
 } from "@ant-design/icons";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import {
+import { useDispatch, useSelector } from "react-redux";
+import tasksSlice, {
   createTask,
   getActiveTasks,
 } from "../../../../Redux/sliceReducer/tasksSlice";
 const cx = classNames.bind(styles);
 const { TextArea } = Input;
 
-function FormAddTask({ onClick }) {
-  const [taskName, setTaskName] = useState("");
-  const [description, setDescription] = useState("");
-
-  const dispatch = useDispatch();
+function FormAddTask({ taskName, description, onClick, onChange, save }) {
   const handleOnClick = (actionName) => {
     onClick(actionName);
+  };
 
-    if (actionName === "addTask") {
-      dispatch(createTask({ content: taskName, description: description }));
-      dispatch(getActiveTasks());
-    }
+  const handleOnChange = (e, actionName) => {
+    onChange(e, actionName);
   };
   return (
     <>
@@ -40,16 +35,16 @@ function FormAddTask({ onClick }) {
           autoSize={true}
           className={cx("text-area", "title-text")}
           value={taskName}
-          onChange={(e) => setTaskName(e.target.value)}
+          onChange={(e) => handleOnChange(e, "taskName")}
         />
 
         <TextArea
           placeholder="Desciption"
           bordered={false}
-          autoSize={{ minRows: 6 }}
+          autoSize={{ minRows: 2 }}
           className={cx("text-area")}
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => handleOnChange(e, "description")}
         />
 
         <div className={cx("actions-in")}>
@@ -92,14 +87,26 @@ function FormAddTask({ onClick }) {
         >
           Cancel
         </Button>
-        <Button
-          onClick={() => handleOnClick("addTask")}
-          style={{ marginRight: 10 }}
-          size="large"
-          type="primary"
-        >
-          Add task
-        </Button>
+        {!save && (
+          <Button
+            onClick={() => handleOnClick("addTask")}
+            style={{ marginRight: 10 }}
+            size="large"
+            type="primary"
+          >
+            Add task
+          </Button>
+        )}
+        {save && (
+          <Button
+            onClick={() => handleOnClick("save")}
+            style={{ marginRight: 10 }}
+            size="large"
+            type="primary"
+          >
+            Save
+          </Button>
+        )}
       </div>
     </>
   );
