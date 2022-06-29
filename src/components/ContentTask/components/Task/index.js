@@ -14,10 +14,10 @@ function Task({ taskName, description, onClick, id, checked }) {
     <div className={cx("task-container")}>
       <div className={cx("task")}>
         <div className={cx("check-box")}>
-          <Checkbox
+          {/* <Checkbox
             checked={checked}
             onChange={() => handleOnClick("check", id)}
-          />
+          /> */}
         </div>
         <div className={cx("content")}>
           <div className={cx("title")}>{taskName}</div>

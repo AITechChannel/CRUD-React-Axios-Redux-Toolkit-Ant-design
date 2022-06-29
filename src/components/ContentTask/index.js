@@ -108,20 +108,6 @@ function ContentTask() {
         setDescription(current.description);
       }
     }
-
-    if (actionName === "check") {
-      setIdEdit(id);
-      dispatch(tasksSlice.actions.toggle(id));
-      const currentCheck = dataTasks.activeTasksUi.find((e, i) => e.id === id);
-      dispatch(
-        updateTask({
-          id: id,
-          content: {
-            completed: true,
-          },
-        })
-      );
-    }
   };
 
   useEffect(() => {
