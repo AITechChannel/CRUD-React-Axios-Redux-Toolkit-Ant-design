@@ -4,12 +4,13 @@ import "antd/dist/antd.css";
 import FormAddTask from "./components/FormAddTask";
 
 import classNames from "classnames/bind";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tasksSlice, {
   createTask,
   delTask,
   getActiveTasks,
+  updateTask,
 } from "../../Redux/sliceReducer/tasksSlice";
 import HeaderTask from "./components/HeaderTask";
 import Task from "./components/Task";
@@ -20,6 +21,7 @@ function ContentTask() {
   const dispatch = useDispatch();
   const [showFormAddTask, setShowFormAddTask] = useState(false);
   const [idEdit, setIdEdit] = useState(null);
+
   const [showEdit, setShowEdit] = useState(false);
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
@@ -51,6 +53,21 @@ function ContentTask() {
 
     if (actionName === "save") {
       // end day 28/06/2022
+      setShowFormAddTask(false);
+      setShowEdit(false);
+      dispatch(
+        tasksSlice.actions.update({
+          id: idEdit,
+          content: taskName,
+          description: description,
+        })
+      );
+      dispatch(
+        updateTask({
+          id: idEdit,
+          content: { content: taskName, description: description },
+        })
+      );
     }
   };
 
@@ -58,7 +75,10 @@ function ContentTask() {
     if (dataTasks.status.createTask == "success") {
       dispatch(getActiveTasks());
     }
-  }, [dataTasks.status.createTask]);
+    if (dataTasks.status.updateTask == "success") {
+      dispatch(getActiveTasks());
+    }
+  }, [dataTasks.status.createTask, dataTasks.status.updateTask]);
 
   const handleOnChangeFormAddTask = (e, actionName) => {
     if (actionName === "taskName") {
@@ -82,12 +102,25 @@ function ContentTask() {
       const current = dataTasks.activeTasksUi.find((e, i) => {
         return e.id === id;
       });
-      console.log(current.content);
 
       if (current) {
         setTaskName(current.content);
         setDescription(current.description);
       }
+    }
+
+    if (actionName === "check") {
+      setIdEdit(id);
+      dispatch(tasksSlice.actions.toggle(id));
+      const currentCheck = dataTasks.activeTasksUi.find((e, i) => e.id === id);
+      dispatch(
+        updateTask({
+          id: id,
+          content: {
+            completed: true,
+          },
+        })
+      );
     }
   };
 
@@ -100,13 +133,13 @@ function ContentTask() {
       <HeaderTask />
 
       {dataTasks.activeTasksUi.map((e, i) => (
-        <>
+        <Fragment key={`task_${i}`}>
           <Task
             id={e.id}
-            key={`task_${i}`}
             taskName={e.content}
             description={e.description}
             onClick={handleOnClickTask}
+            checked={e.completed}
           />
           {idEdit === e.id && showFormAddTask && showEdit && (
             <FormAddTask
@@ -117,7 +150,7 @@ function ContentTask() {
               save={true}
             />
           )}
-        </>
+        </Fragment>
       ))}
 
       {!showFormAddTask && (

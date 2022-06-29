@@ -4,16 +4,20 @@ import classNames from "classnames/bind";
 import styles from "./Task.module.scss";
 const cx = classNames.bind(styles);
 
-function Task({ taskName, description, onClick, id }) {
+function Task({ taskName, description, onClick, id, checked }) {
   const handleOnClick = (actionName, id) => {
     console.log(id);
     onClick(actionName, id);
   };
+
   return (
     <div className={cx("task-container")}>
       <div className={cx("task")}>
         <div className={cx("check-box")}>
-          <Checkbox />
+          <Checkbox
+            checked={checked}
+            onChange={() => handleOnClick("check", id)}
+          />
         </div>
         <div className={cx("content")}>
           <div className={cx("title")}>{taskName}</div>

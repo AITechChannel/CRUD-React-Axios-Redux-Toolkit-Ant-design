@@ -17,6 +17,10 @@ const taskApi = {
     const url = "/tasks";
     return axiosClient.post(url, data, {});
   },
+  updateTask: (data) => {
+    const url = "/tasks/" + data.id;
+    return axiosClient.post(url, data.content, {});
+  },
   delTask: (id) => {
     const url = "/tasks/" + id;
     return axiosClient.delete(url, {});
